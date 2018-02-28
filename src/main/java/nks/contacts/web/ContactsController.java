@@ -1,36 +1,38 @@
 package nks.contacts.web;
 
-import javax.faces.bean.RequestScoped;
-import javax.inject.Named;
-
-import nks.contacts.domain.contact.Contact;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import nks.contacts.domain.contact.Contacts;
-import nks.contacts.domain.pagination.PageCriteria;
-
 import java.util.List;
 
-@Named
-@RequestScoped
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
+
+import nks.contacts.domain.contact.Contact;
+
+import org.primefaces.model.LazyDataModel;
+
+import nks.contacts.domain.contact.Contacts;
+import nks.contacts.domain.contact.ContactsImpl;
+import nks.contacts.repository.InMemoryRepository;
+
+@ViewScoped
+@ManagedBean
 public class ContactsController {
 	
-	@Autowired
-	private Contacts contacts;
+//	@Autowired
+	private ContactsImpl contacts = new ContactsImpl();
+	
+	public ContactsController() {
+		contacts.setRepository(new InMemoryRepository());
+	}
 	
 	public List<Contact> getContacts(){
-		return contacts.pagedItems(new PageCriteria() {
-			
-			@Override
-			public Integer getOffset() {
-				return 0;
-			}
-			
-			@Override
-			public Integer getCount() {
-				return 100;
-			}
-		});
+		return contacts.pagedItems(0, 100);
+//		return new PaginationModel<Contact>(contacts);
+		
+	}
+	
+	public String getName() {
+		return "Contacts";
 	}
 
 }

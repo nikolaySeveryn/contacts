@@ -3,13 +3,13 @@ package nks.contacts.repository;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.stereotype.Component;
+//import org.springframework.stereotype.Component;
 
 import nks.contacts.domain.contact.Contact;
 import nks.contacts.domain.contact.ContactRepository;
 import nks.contacts.domain.contact.Contacts;
 
-@Component
+//@Component
 public class InMemoryRepository implements ContactRepository{
 	
 	private List<Contact> contacts = new ArrayList<>();

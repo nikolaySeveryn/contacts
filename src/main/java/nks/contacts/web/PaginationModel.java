@@ -1,7 +1,5 @@
 package nks.contacts.web;
 
-import nks.contacts.domain.contact.Contact;
-import nks.contacts.domain.pagination.PageCriteria;
 import nks.contacts.domain.pagination.PageableSource;
 
 import org.primefaces.model.LazyDataModel;
@@ -36,18 +34,7 @@ public class PaginationModel<T> extends LazyDataModel<T>{
     @Override
     public List<T> load(int first, int pageSize, String sortField, SortOrder sortOrder,
     		Map<String, Object> filters) {
-    	
     	this.setRowCount(service.itemCount());
-    	return service.pagedItems(new PageCriteria() {
-            @Override
-            public Integer getOffset() {
-                return first;
-            }
-
-            @Override
-            public Integer getCount() {
-                return pageSize;
-            }
-        });
+    	return service.pagedItems(first, pageSize);
     }
 }

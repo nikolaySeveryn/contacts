@@ -6,5 +6,5 @@ public interface PageableSource<T> {
 	Integer getId(T object);
 	T getById(Integer id);
 	Integer itemCount();
-    List<T> pagedItems(PageCriteria criteria);
+    List<T> pagedItems(Integer offset, Integer count);
 }

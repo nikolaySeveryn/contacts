@@ -1,23 +1,22 @@
 package nks.contacts.domain.contact;
 
 import nks.contacts.domain.DomainException;
-import nks.contacts.domain.pagination.PageCriteria;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+//import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.stereotype.Component;
 
 
-@Component
+//@Component
 public class ContactsImpl implements Contacts{
 
-    private final ContactRepository repository;
+    private ContactRepository repository;
 
-    @Autowired
-    public ContactsImpl(ContactRepository repository) {
-        this.repository = repository;
-    }
+//    @Autowired
+    public void setRepository(ContactRepository repository) {
+		this.repository = repository;
+	}
 
     @Override
     public void save(Contact contact) {
@@ -36,8 +35,8 @@ public class ContactsImpl implements Contacts{
     }
 
     @Override
-    public List<Contact> pagedItems(PageCriteria criteria) {
-        return repository.retrievePaged(criteria.getOffset(), criteria.getCount());
+    public List<Contact> pagedItems(Integer offset, Integer count) {
+        return repository.retrievePaged(offset, count);
     }
 
 	@Override
