@@ -10,26 +10,12 @@ import java.util.Map;
 
 public class PaginationModel<T> extends LazyDataModel<T>{
 
-    /**
-	 * 
-	 */
-	private static final long serialVersionUID = -4677276249016807764L;
 	private final PageableSource<T> service;
 
-    public PaginationModel(PageableSource<T> contacts) {
-        this.service = contacts;
+    public PaginationModel(PageableSource<T> service) {
+        this.service = service;
+        this.setRowCount(service.itemCount());
     }
-    
-    @Override
-    public T getRowData(String rowKey) {
-    	return service.getById(Integer.parseInt(rowKey));
-    }
-    
-    @Override
-    public Object getRowKey(T object) {
-    	return service.getId(object);
-    }
-
     
     @Override
     public List<T> load(int first, int pageSize, String sortField, SortOrder sortOrder,
