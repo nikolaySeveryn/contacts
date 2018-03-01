@@ -10,6 +10,7 @@ import javax.faces.context.FacesContext;
 import nks.contacts.domain.contact.Contact;
 
 import nks.contacts.domain.contact.Contacts;
+import nks.contacts.web.Message;
 import nks.contacts.web.model.ContactModelConverter;
 import nks.contacts.web.model.ContactViewModel;
 import nks.contacts.web.pagination.PaginationModel;
@@ -48,6 +49,11 @@ public class ContactsController {
 
 	public void startAdding() {
 		editor.setEditingContact(new ContactViewModel());
+	}
+
+	public void delete(ContactViewModel contact){
+		contacts.remove(contact.getId());
+		Message.infoMessage("Deleted", "Contact has been deleted").show();
 	}
 
 }

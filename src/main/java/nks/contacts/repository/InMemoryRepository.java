@@ -53,13 +53,19 @@ public class InMemoryRepository implements ContactRepository{
 
 	@Override
 	public void removeById(Integer id) {
-		
+		Contact contact = findById(id);
+		contacts.remove(contact);
 	}
 
 	@Override
 	public Boolean exists(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
+		for(Contact contact : contacts) {
+			if(contact.getId().equals(id)) {
+				return true;
+			}
+		}
+		return false;
+
 	}
 
 	@Override

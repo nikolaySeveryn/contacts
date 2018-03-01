@@ -27,7 +27,7 @@ public class ContactEditorBean {
 	public ContactViewModel getEditingContact() {
 		return editingContact;
 	}
-	
+
 	public String getModalTitle(){
 		if(editingContact == null){
 			return "";
@@ -39,17 +39,25 @@ public class ContactEditorBean {
 			return "Edit contact";
 		}
 	}
-	
-	
+
+	public boolean isEditingActive(){
+		return editingContact != null;
+	}
 	
 	public void save(){
 		try{
 			contacts.save(this.editingContact.toDomainModel());
+			Message.infoMessage("Success", "Contact has been updated").show();
+			editingContact = null;
 		}
 		catch (Exception e) {
 			//TODO: log exception
 			Message.errorMessge("Unexpected error on saving contact").show();
 		}
+	}
+
+	public void cancel(){
+		this.editingContact = null;
 	}
 
 }

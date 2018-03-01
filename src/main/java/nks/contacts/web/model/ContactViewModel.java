@@ -15,6 +15,8 @@ public class ContactViewModel {
 	
 	public ContactViewModel(){
 		this.id = null;
+		this.fullName = "";
+		this.phoneNumber = "";
 	}
 	
 	public ContactViewModel(Contact contact){

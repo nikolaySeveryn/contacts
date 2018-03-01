@@ -2,43 +2,49 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
 
 <h:head>
 </h:head>
 <h:body>
-	<h1>Contacts</h1>
+    <h1>Contacts</h1>
 
-	<h:form id="form">
-		<p:growl id="msgs" showDetail="true" />
+    <p:growl id="msgs" showDetail="true"/>
 
-		<p:dataTable id="contacts_table" var="contact"
-			value="#{contactsController.contacts}" rows="10" paginator="true"
-			lazy="true">
+    <ui:include src="edit.xhtml" />
 
-			<p:column headerText="Name">
-				<h:outputText value="#{contact.fullName}" />
-			</p:column>
-			<p:column headerText="Phone">
-				<h:outputText value="#{contact.phoneNumber}" />
-			</p:column>
-			<p:column width="40">
-				<p:commandButton
-					actionListener="#{contactsController.startEditing(contact)}"
-					update=":form:editDialog" oncomplete="PF('editDialog').show();"
-					icon="ui-icon-pencil" immediate="true">
-					
-				</p:commandButton>
-			</p:column>
-		</p:dataTable>
+    <h:form id="contact_list">
+        <p:dataTable id="contacts_table" var="contact"
+                     value="#{contactsController.contacts}" rows="10" paginator="true"
+                     lazy="true">
 
+            <p:column headerText="Name">
+                <h:outputText value="#{contact.fullName}"/>
+            </p:column>
+            <p:column headerText="Phone">
+                <h:outputText value="#{contact.phoneNumber}"/>
+            </p:column>
+            <p:column width="100">
+                <p:commandButton
+                        actionListener="#{contactsController.startEditing(contact)}"
+                        update=":editForm" immediate="true"
+                        icon="ui-icon-pencil">
+                    <p:resetInput target=":editForm" />
+                </p:commandButton>
+                <p:commandButton
+                        actionListener="#{contactsController.delete(contact)}"
+                        update=":contact_list" immediate="true"
+                        icon="ui-icon-trash">
+                    <p:confirm header="Delete?" message="Are you sure whant to delete contact #{contact.fullName}" icon="ui-icon-alert" />
+                </p:commandButton>
 
-		<ui:include src="edit.xhtml" />
-
-	</h:form>
+            </p:column>
+        </p:dataTable>
+        <ui:include src="confirm.xhtml" />
+    </h:form>
 
 </h:body>
 </html>
