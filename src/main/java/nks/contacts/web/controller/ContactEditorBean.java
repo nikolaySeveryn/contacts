@@ -47,7 +47,7 @@ public class ContactEditorBean {
 	public void save(){
 		try{
 			contacts.save(this.editingContact.toDomainModel());
-			Message.infoMessage("Success", "Contact has been updated").show();
+			Message.infoMessage("Success", "Contact has been saved").show();
 			editingContact = null;
 		}
 		catch (Exception e) {

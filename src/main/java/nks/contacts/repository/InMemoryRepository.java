@@ -71,12 +71,19 @@ public class InMemoryRepository implements ContactRepository{
 	@Override
 	public void save(Contact contact) {
 		if(contact.isNew()){
-			contacts.add(contact);
+			contacts.add(new Contact(nextId(), contact.getFullName(), contact.getPhoneNumber()));
 		}
 		else{
 			Contact existing = findById(contact.getId());
 			int index = contacts.indexOf(existing);
 			contacts.set(index, contact);
+		}
+	}
+
+	private int nextId(){
+		synchronized (contacts) {
+			Contact lastContact = contacts.get(contacts.size() - 1);
+			return lastContact.getId() + 1;
 		}
 	}
 
