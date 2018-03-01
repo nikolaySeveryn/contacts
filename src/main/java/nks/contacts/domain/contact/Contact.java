@@ -5,8 +5,8 @@ import java.util.Objects;
 public class Contact {
 
     private final Integer id;
-    private final String fullName;
-    private final String phoneNumber;
+    private String fullName;
+    private String phoneNumber;
 
     public Contact(Integer id, String fullName, String phoneNumber) {
         this.id = id;
@@ -28,6 +28,14 @@ public class Contact {
 
     public String getPhoneNumber() {
         return phoneNumber;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public boolean isNew(){
@@ -60,13 +68,12 @@ public class Contact {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Contact contact = (Contact) o;
-        return Objects.equals(fullName, contact.fullName) &&
-                Objects.equals(phoneNumber, contact.phoneNumber);
+        return Objects.equals(id, contact.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(fullName, phoneNumber);
+        return Objects.hash(id);
     }
 
     @Override

@@ -20,7 +20,6 @@ public class PaginationModel<T> extends LazyDataModel<T>{
     @Override
     public List<T> load(int first, int pageSize, String sortField, SortOrder sortOrder,
     		Map<String, Object> filters) {
-    	this.setRowCount(service.itemCount());
     	return service.pagedItems(first, pageSize);
     }
 }

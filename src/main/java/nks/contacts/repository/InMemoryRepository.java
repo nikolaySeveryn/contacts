@@ -48,7 +48,7 @@ public class InMemoryRepository implements ContactRepository{
 				return contact;
 			}
 		}
-		return null;
+		throw new RuntimeException(String.format("Contact with id %d does not exists", id));
 	}
 
 	@Override
@@ -64,8 +64,14 @@ public class InMemoryRepository implements ContactRepository{
 
 	@Override
 	public void save(Contact contact) {
-		// TODO Auto-generated method stub
-		
+		if(contact.isNew()){
+			contacts.add(contact);
+		}
+		else{
+			Contact existing = findById(contact.getId());
+			int index = contacts.indexOf(existing);
+			contacts.set(index, contact);
+		}
 	}
 
 	@Override
@@ -77,7 +83,21 @@ public class InMemoryRepository implements ContactRepository{
 		if(to > contacts.size()) {
 			to = contacts.size();
 		}
-		return contacts.subList(offset, to);
+		List<Contact> results = this.contacts.subList(offset, to);
+		return copyContact(results);
+	}
+
+	/**
+	 * We copy contacts to emulate persistent storage
+	 * @param originalContacts
+	 * @return list of other instances of the same contacts
+	 */
+	private List<Contact> copyContact(List<Contact> originalContacts){
+		List<Contact> copy = new ArrayList<>(originalContacts.size());
+		for(Contact original : originalContacts){
+			copy.add(new Contact(original.getId(), original.getFullName(), original.getPhoneNumber()));
+		}
+		return copy;
 	}
 
 	@Override

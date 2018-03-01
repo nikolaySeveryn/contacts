@@ -12,13 +12,39 @@
 <h:body>
     <h1>Contacts</h1>
 
-    <h:form id="form">
-        <p:dataTable var="contact" value="#{contactsController.contacts}" rows="10" paginator="true" lazy="true">
+    <h:form id="form" >
+        <p:growl id="msgs" showDetail="true"/>
+
+        <p:dataTable id="contacts_table" var="contact" value="#{contactsController.contacts}" rows="10" paginator="true" lazy="true" editable="true">
+
+            <p:ajax event="rowEdit" listener="#{contactsController.onRowEdit}" update=":form:msgs contacts_table" />
+            <p:ajax event="rowEditCancel" update=":form:msgs contacts_table" />
+
             <p:column headerText="Name">
-                <h:outputText value="#{contact.fullName}" />
+                <p:cellEditor>
+                    <f:facet name="output">
+                        <h:outputText value="#{contact.fullName}" />
+                    </f:facet>
+                    <f:facet name="input">
+                        <h:inputText value="#{contact.fullName}">
+                            <f:validateRequired />
+                        </h:inputText>
+                    </f:facet>
+                </p:cellEditor>
             </p:column>
+
             <p:column headerText="Phone">
-                <h:outputText value="#{contact.phoneNumber}" />
+                <p:cellEditor>
+                    <f:facet name="output">
+                        <h:outputText value="#{contact.phoneNumber}" />
+                    </f:facet>
+                    <f:facet name="input">
+                        <p:inputMask value="#{contact.phoneNumber}" mask="(999) 99-99-999" />
+                    </f:facet>
+                </p:cellEditor>
+            </p:column>
+            <p:column style="width:32px">
+                <p:rowEditor />
             </p:column>
         </p:dataTable>
 
