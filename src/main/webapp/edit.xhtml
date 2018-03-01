@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+	<ui:composition>
+		
+		<p:dialog id="editDialog" header="#{contactEditorBean.modalTitle}" widgetVar="editDialog" 
+			modal="true" dynamic="true">
+			<h:form>
+				<p:messages id="msgs" />
+				<p:panelGrid columns="3" layout="grid" style="border:none;">
+					<h:outputLabel for="nameField" value="Name" />
+					<h:inputText id="nameField" required="true" label="Name" 
+					value="#{contactEditorBean.editingContact.fullName}">
+						<f:validateRequired />
+					</h:inputText>
+					<p:message for="nameField" display="icon" />
+					
+					<h:outputLabel for="phoneField" value="Phone number" />
+					<p:inputMask id="phoneField" required="true" label="Phone"
+						 value="#{contactEditorBean.editingContact.phoneNumber}" 
+						mask="#{contactEditorBean.editingContact.mask}">
+						<f:validateRequired />
+					</p:inputMask>
+					<p:message for="phoneField" display="icon" />
+					
+					<p:commandButton value="Save" update=":form:editDialog" 
+						actionListener="#{contactEditorBean.save}" icon="ui-icon-disk"  />
+				</p:panelGrid>
+			</h:form>
+		</p:dialog>
+	</ui:composition>
+</h:body>
+</html>

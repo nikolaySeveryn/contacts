@@ -43,4 +43,9 @@ public class ContactsImpl implements Contacts{
 	public Integer itemCount() {
 		return repository.count();
 	}
+
+	@Override
+	public Contact find(Integer id) {
+		return repository.findById(id);
+	}
 }

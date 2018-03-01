@@ -2,54 +2,43 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
 </h:head>
 <h:body>
-    <h1>Contacts</h1>
+	<h1>Contacts</h1>
 
-    <h:form id="form" >
-        <p:growl id="msgs" showDetail="true"/>
+	<h:form id="form">
+		<p:growl id="msgs" showDetail="true" />
 
-        <p:dataTable id="contacts_table" var="contact" value="#{contactsController.contacts}" rows="10" paginator="true" lazy="true" editable="true">
+		<p:dataTable id="contacts_table" var="contact"
+			value="#{contactsController.contacts}" rows="10" paginator="true"
+			lazy="true">
 
-            <p:ajax event="rowEdit" listener="#{contactsController.onRowEdit}" update=":form:msgs contacts_table" />
-            <p:ajax event="rowEditCancel" update=":form:msgs contacts_table" />
-
-            <p:column headerText="Name">
-                <p:cellEditor>
-                    <f:facet name="output">
-                        <h:outputText value="#{contact.fullName}" />
-                    </f:facet>
-                    <f:facet name="input">
-                        <h:inputText value="#{contact.fullName}">
-                            <f:validateRequired />
-                        </h:inputText>
-                    </f:facet>
-                </p:cellEditor>
-            </p:column>
-
-            <p:column headerText="Phone">
-                <p:cellEditor>
-                    <f:facet name="output">
-                        <h:outputText value="#{contact.phoneNumber}" />
-                    </f:facet>
-                    <f:facet name="input">
-                        <p:inputMask value="#{contact.phoneNumber}" mask="(999) 99-99-999" />
-                    </f:facet>
-                </p:cellEditor>
-            </p:column>
-            <p:column style="width:32px">
-                <p:rowEditor />
-            </p:column>
-        </p:dataTable>
+			<p:column headerText="Name">
+				<h:outputText value="#{contact.fullName}" />
+			</p:column>
+			<p:column headerText="Phone">
+				<h:outputText value="#{contact.phoneNumber}" />
+			</p:column>
+			<p:column width="40">
+				<p:commandButton
+					actionListener="#{contactsController.startEditing(contact)}"
+					update=":form:editDialog" oncomplete="PF('editDialog').show();"
+					icon="ui-icon-pencil" immediate="true">
+					
+				</p:commandButton>
+			</p:column>
+		</p:dataTable>
 
 
-    </h:form>
+		<ui:include src="edit.xhtml" />
+
+	</h:form>
 
 </h:body>
 </html>

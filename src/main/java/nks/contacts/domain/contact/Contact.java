@@ -5,17 +5,17 @@ import java.util.Objects;
 public class Contact {
 
     private final Integer id;
-    private String fullName;
-    private String phoneNumber;
+    private final String fullName;
+    private final String phoneNumber;
+    
+    Contact(String fullName, String phoneNumber) {
+    	this(null, fullName, phoneNumber);
+	}
 
     public Contact(Integer id, String fullName, String phoneNumber) {
         this.id = id;
         this.fullName = fullName;
         this.phoneNumber = phoneNumber;
-    }
-
-    public Contact(String fullName, String phoneNumber){
-        this(null, fullName, phoneNumber);
     }
 
     public Integer getId() {
@@ -28,14 +28,6 @@ public class Contact {
 
     public String getPhoneNumber() {
         return phoneNumber;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
     }
 
     public boolean isNew(){

@@ -1,4 +1,4 @@
-package nks.contacts.web;
+package nks.contacts.web.pagination;
 
 import nks.contacts.domain.pagination.PageableSource;
 
@@ -10,6 +10,10 @@ import java.util.Map;
 
 public class PaginationModel<T> extends LazyDataModel<T>{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8118333652419117331L;
 	private final PageableSource<T> service;
 
     public PaginationModel(PageableSource<T> service) {
