@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import nks.contacts.domain.contact.Contact;
 import nks.contacts.domain.contact.ContactRepository;
 
-@Component
+//@Component
 public class InMemoryRepository implements ContactRepository{
 	
 	private List<Contact> contacts = new ArrayList<>();
@@ -114,8 +114,8 @@ public class InMemoryRepository implements ContactRepository{
 	}
 
 	@Override
-	public Integer count() {
-		return contacts.size();
+	public Long count() {
+		return Long.valueOf(contacts.size());
 	}
 
 }

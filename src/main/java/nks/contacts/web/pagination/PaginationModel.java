@@ -18,7 +18,7 @@ public class PaginationModel<T> extends LazyDataModel<T>{
 
     public PaginationModel(PageableSource<T> service) {
         this.service = service;
-        this.setRowCount(service.itemCount());
+        this.setRowCount(service.itemCount().intValue());
     }
     
     @Override

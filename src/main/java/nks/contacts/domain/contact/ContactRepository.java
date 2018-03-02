@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface ContactRepository {
 
-	Integer count();
+	Long count();
     Contact findById(Integer id);
     void removeById(Integer id);
     Boolean exists(Integer id);

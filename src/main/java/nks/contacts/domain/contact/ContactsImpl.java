@@ -40,7 +40,7 @@ public class ContactsImpl implements Contacts{
     }
 
 	@Override
-	public Integer itemCount() {
+	public Long itemCount() {
 		return repository.count();
 	}
 

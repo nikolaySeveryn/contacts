@@ -16,7 +16,7 @@ public class ContactModelConverter implements PageableSource<ContactViewModel> {
 	}
 
 	@Override
-	public Integer itemCount() {
+	public Long itemCount() {
 		return origin.itemCount();
 	}
 
