@@ -14,55 +14,55 @@ import nks.contacts.domain.contact.ContactRepository;
 
 @Repository
 public class ContactDatabaseRepository implements ContactRepository {
-	
-	@Autowired
-	private ContactCrudRepository crudRepository;
 
-	@Override
-	public Long count() {
-		return crudRepository.count();
-	}
+    @Autowired
+    private ContactCrudRepository crudRepository;
 
-	@Override
-	public Contact findById(Integer id) {
-		ContactData data = crudRepository.findById(id).get();
-		return createContact(data);
-	}
+    @Override
+    public Long count() {
+        return crudRepository.count();
+    }
+
+    @Override
+    public Contact findById(Integer id) {
+        ContactData data = crudRepository.findById(id).get();
+        return createContact(data);
+    }
 
 
-	@Override
-	public void removeById(Integer id) {
-		crudRepository.deleteById(id);
-	}
+    @Override
+    public void removeById(Integer id) {
+        crudRepository.deleteById(id);
+    }
 
-	@Override
-	public Boolean exists(Integer id) {
-		return crudRepository.existsById(id);
-	}
+    @Override
+    public Boolean exists(Integer id) {
+        return crudRepository.existsById(id);
+    }
 
-	@Override
-	public void save(Contact contact) {
-		ContactData data = new ContactData();
-		data.setId(contact.getId());
-		data.setFullName(contact.getFullName());
-		data.setPhoneNumber(contact.getPhoneNumber());
-		crudRepository.save(data);
-	}
+    @Override
+    public void save(Contact contact) {
+        ContactData data = new ContactData();
+        data.setId(contact.getId());
+        data.setFullName(contact.getFullName());
+        data.setPhoneNumber(contact.getPhoneNumber());
+        crudRepository.save(data);
+    }
 
-	@Override
-	public List<Contact> retrievePaged(Integer page, Integer size) {
-		Sort sort = Sort.by(new Sort.Order(Sort.Direction.ASC, "id"));
-		PageRequest pageRequest = PageRequest.of(page, size, sort);
-		Page<ContactData> allData = crudRepository.findAll(pageRequest);
-		List<Contact> contacts = new ArrayList<>(allData.getSize());
-		for(ContactData data : allData){
-			contacts.add(createContact(data));
-		}
-		return contacts;
-	}
-	
-	private Contact createContact(ContactData data) {
-		return new Contact(data.getId(), data.getFullName(), data.getPhoneNumber());
-	}
+    @Override
+    public List<Contact> retrievePaged(Integer page, Integer size) {
+        Sort sort = Sort.by(new Sort.Order(Sort.Direction.ASC, "id"));
+        PageRequest pageRequest = PageRequest.of(page, size, sort);
+        Page<ContactData> allData = crudRepository.findAll(pageRequest);
+        List<Contact> contacts = new ArrayList<>(allData.getSize());
+        for (ContactData data : allData) {
+            contacts.add(createContact(data));
+        }
+        return contacts;
+    }
+
+    private Contact createContact(ContactData data) {
+        return new Contact(data.getId(), data.getFullName(), data.getPhoneNumber());
+    }
 
 }

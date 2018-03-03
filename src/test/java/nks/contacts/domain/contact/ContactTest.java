@@ -31,19 +31,19 @@ public class ContactTest {
     }
 
     @Test
-    public void nullPhoneNumberTest(){
+    public void nullPhoneNumberTest() {
         Contact contact = new Contact(null, null);
         assertFalse(contact.isValidPhoneNumber());
     }
 
     @Test
-    public void emptyPhoneNumberTest(){
+    public void emptyPhoneNumberTest() {
         Contact contact = new Contact(null, "");
         assertFalse(contact.isValidPhoneNumber());
     }
 
     @Test
-    public void nonNumericalPhoneTest(){
+    public void nonNumericalPhoneTest() {
         Contact contact = new Contact(null, "(098)12-31-123");
         assertFalse(contact.isValidPhoneNumber());
 
@@ -61,14 +61,14 @@ public class ContactTest {
     }
 
     @Test
-    public void newContactTest(){
+    public void newContactTest() {
         Contact contact = new Contact(null, null);
         assertTrue(contact.isNew());
     }
 
     @Test
-    public void oldContactTest(){
-        Contact contact = new Contact(123,null, null);
+    public void oldContactTest() {
+        Contact contact = new Contact(123, null, null);
         assertFalse(contact.isNew());
     }
 }

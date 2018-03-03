@@ -1,6 +1,6 @@
 package nks.contacts.domain;
 
-public class DomainException extends RuntimeException{
+public class DomainException extends RuntimeException {
 
     private static final long serialVersionUID = 7528992141089464196L;
 

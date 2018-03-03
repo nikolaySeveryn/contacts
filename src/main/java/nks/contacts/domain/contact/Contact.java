@@ -7,10 +7,10 @@ public class Contact {
     private final Integer id;
     private final String fullName;
     private final String phoneNumber;
-    
+
     Contact(String fullName, String phoneNumber) {
-    	this(null, fullName, phoneNumber);
-	}
+        this(null, fullName, phoneNumber);
+    }
 
     public Contact(Integer id, String fullName, String phoneNumber) {
         this.id = id;
@@ -30,26 +30,26 @@ public class Contact {
         return phoneNumber;
     }
 
-    public boolean isNew(){
+    public boolean isNew() {
         return id == null;
     }
 
-    public boolean isValid(){
+    public boolean isValid() {
         return isValidName() && isValidPhoneNumber();
     }
 
     public boolean isValidName() {
-        if(fullName == null || fullName.isEmpty()){
+        if (fullName == null || fullName.isEmpty()) {
             return false;
         }
         return true;
     }
 
     public boolean isValidPhoneNumber() {
-        if(phoneNumber == null || phoneNumber.isEmpty()){
+        if (phoneNumber == null || phoneNumber.isEmpty()) {
             return false;
         }
-        if(! phoneNumber.matches("[0-9]+")){
+        if (!phoneNumber.matches("[0-9]+")) {
             return false;
         }
         return true;

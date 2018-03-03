@@ -26,34 +26,34 @@ import org.springframework.stereotype.Component;
 @ManagedBean
 public class ContactsController {
 
-	@Autowired
-	private Contacts contacts;
-	@Autowired
-	private ContactEditorBean editor;
-	private LazyDataModel<ContactViewModel> model;
+    @Autowired
+    private Contacts contacts;
+    @Autowired
+    private ContactEditorBean editor;
+    private LazyDataModel<ContactViewModel> model;
 
-	@PostConstruct
-	public void init() {
-		model = new PaginationModel<>(new ContactModelConverter(contacts));
-	}
+    @PostConstruct
+    public void init() {
+        model = new PaginationModel<>(new ContactModelConverter(contacts));
+    }
 
-	public LazyDataModel<ContactViewModel> getContacts() {
-		return model;
-	}
+    public LazyDataModel<ContactViewModel> getContacts() {
+        return model;
+    }
 
-	public void startEditing(ContactViewModel contact) {
-		Contact refreshedModel = contacts.find(contact.getId());
-		ContactViewModel refreshedViewModel = new ContactViewModel(refreshedModel);
-		editor.setEditingContact(refreshedViewModel);
-	}
+    public void startEditing(ContactViewModel contact) {
+        Contact refreshedModel = contacts.find(contact.getId());
+        ContactViewModel refreshedViewModel = new ContactViewModel(refreshedModel);
+        editor.setEditingContact(refreshedViewModel);
+    }
 
-	public void startAdding() {
-		editor.setEditingContact(new ContactViewModel());
-	}
+    public void startAdding() {
+        editor.setEditingContact(new ContactViewModel());
+    }
 
-	public void delete(ContactViewModel contact){
-		contacts.remove(contact.getId());
-		Message.infoMessage("Deleted", "Contact has been deleted").show();
-	}
+    public void delete(ContactViewModel contact) {
+        contacts.remove(contact.getId());
+        Message.infoMessage("Deleted", "Contact has been deleted").show();
+    }
 
 }

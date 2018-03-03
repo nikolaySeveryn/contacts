@@ -36,8 +36,8 @@ public class ContactsImplTest {
         try {
             contacts.save(contact);
             fail("Exception was expected, but there was not");
+        } catch (DomainException e) {
         }
-        catch (DomainException e) {}
         verify(repository, never()).save(contact);
     }
 
@@ -57,8 +57,8 @@ public class ContactsImplTest {
         try {
             contacts.remove(id);
             fail("Exception was expected, but there was not");
+        } catch (DomainException e) {
         }
-        catch (DomainException e) {}
         verify(repository).exists(id);
         verify(repository, never()).removeById(id);
     }
@@ -66,17 +66,17 @@ public class ContactsImplTest {
     @Test
     public void pagedItems() {
         contacts.pagedItems(0, 5);
-        verify(repository).retrievePaged(0,5);
+        verify(repository).retrievePaged(0, 5);
     }
 
     @Test
     public void secondPageTest() {
         contacts.pagedItems(5, 5);
-        verify(repository).retrievePaged(1,5);
+        verify(repository).retrievePaged(1, 5);
     }
 
     @Test
-    public void zeroLimitTest(){
+    public void zeroLimitTest() {
         contacts.pagedItems(5, 0);
         verify(repository, never()).retrievePaged(any(), any());
     }

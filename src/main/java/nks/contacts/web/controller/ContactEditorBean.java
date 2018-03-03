@@ -14,38 +14,37 @@ import nks.contacts.web.model.ContactViewModel;
 @SessionScoped
 @ManagedBean
 public class ContactEditorBean {
-	
-	@Autowired
-	private Contacts contacts;
-	
-	private ContactViewModel editingContact;
-	
-	public void setEditingContact(ContactViewModel editingContact) {
-		this.editingContact = editingContact;
-	}
-	
-	public ContactViewModel getEditingContact() {
-		return editingContact;
-	}
 
-	public boolean isEditingActive(){
-		return editingContact != null;
-	}
-	
-	public void save(){
-		try{
-			contacts.save(this.editingContact.toDomainModel());
-			Message.infoMessage("Success", "Contact has been saved").show();
-			editingContact = null;
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-			Message.errorMessge("Unexpected error on saving contact").show();
-		}
-	}
+    @Autowired
+    private Contacts contacts;
 
-	public void cancel(){
-		this.editingContact = null;
-	}
+    private ContactViewModel editingContact;
+
+    public void setEditingContact(ContactViewModel editingContact) {
+        this.editingContact = editingContact;
+    }
+
+    public ContactViewModel getEditingContact() {
+        return editingContact;
+    }
+
+    public boolean isEditingActive() {
+        return editingContact != null;
+    }
+
+    public void save() {
+        try {
+            contacts.save(this.editingContact.toDomainModel());
+            Message.infoMessage("Success", "Contact has been saved").show();
+            editingContact = null;
+        } catch (Exception e) {
+            e.printStackTrace();
+            Message.errorMessge("Unexpected error on saving contact").show();
+        }
+    }
+
+    public void cancel() {
+        this.editingContact = null;
+    }
 
 }
