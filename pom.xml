@@ -139,6 +139,7 @@
                 <configuration>
                     <changeLogFile>${basedir}/src/liquibase/master.xml</changeLogFile>
                     <propertyFile>${basedir}/src/liquibase/liquibase.properties</propertyFile>
+                    <promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
                 </configuration>
                 <executions>
                     <execution>
