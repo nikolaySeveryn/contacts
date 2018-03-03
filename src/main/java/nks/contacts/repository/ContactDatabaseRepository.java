@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 
 import nks.contacts.domain.contact.Contact;
@@ -50,7 +51,9 @@ public class ContactDatabaseRepository implements ContactRepository {
 
 	@Override
 	public List<Contact> retrievePaged(Integer page, Integer size) {
-		Page<ContactData> allData = crudRepository.findAll(PageRequest.of(page, size));
+		Sort sort = Sort.by(new Sort.Order(Sort.Direction.ASC, "id"));
+		PageRequest pageRequest = PageRequest.of(page, size, sort);
+		Page<ContactData> allData = crudRepository.findAll(pageRequest);
 		List<Contact> contacts = new ArrayList<>(allData.getSize());
 		for(ContactData data : allData){
 			contacts.add(createContact(data));
