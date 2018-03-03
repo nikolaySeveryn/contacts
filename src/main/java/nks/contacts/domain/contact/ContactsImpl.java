@@ -2,6 +2,7 @@ package nks.contacts.domain.contact;
 
 import nks.contacts.domain.DomainException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +37,11 @@ public class ContactsImpl implements Contacts{
 
     @Override
     public List<Contact> pagedItems(Integer offset, Integer count) {
-        return repository.retrievePaged(offset, count);
+        if(count < 1){
+            return new ArrayList<>();
+        }
+        int page = offset / count;
+        return repository.retrievePaged(page, count);
     }
 
 	@Override

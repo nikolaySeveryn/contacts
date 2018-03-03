@@ -28,18 +28,6 @@ public class ContactEditorBean {
 		return editingContact;
 	}
 
-	public String getModalTitle(){
-		if(editingContact == null){
-			return "";
-		}
-		else if(editingContact.toDomainModel().isNew()){
-			return "New contact";
-		}
-		else{
-			return "Edit contact";
-		}
-	}
-
 	public boolean isEditingActive(){
 		return editingContact != null;
 	}
@@ -51,7 +39,7 @@ public class ContactEditorBean {
 			editingContact = null;
 		}
 		catch (Exception e) {
-			//TODO: log exception
+			e.printStackTrace();
 			Message.errorMessge("Unexpected error on saving contact").show();
 		}
 	}

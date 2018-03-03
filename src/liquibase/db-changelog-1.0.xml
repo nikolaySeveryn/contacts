@@ -1,0 +1,94 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+
+    <changeSet id="create_schema_catalog" author="nseveryn">
+        <sql endDelimiter=";">
+            CREATE SCHEMA catalog
+        </sql>
+        <rollback>
+            <sql endDelimiter=";">
+                DROP SCHEMA catalog
+            </sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet author="liquibase-docs" id="createSequence-example">
+        <createSequence  schemaName="catalog" sequenceName="seq_contact_id" />
+        <rollback>
+            <dropSequence schemaName="catalog" sequenceName="seq_contact_id" />
+        </rollback>
+    </changeSet>
+
+    <changeSet id="create_contacts" author="nseveryn">
+        <createTable schemaName="catalog" tableName="contacts">
+            <column name="id" type="int">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="full_name" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="phone_number" type="varchar(10)">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+        <addDefaultValue schemaName="catalog" tableName="contacts" columnName="id" defaultValueSequenceNext="seq_contact_id" />
+        <rollback>
+            <dropTable schemaName="catalog" tableName="contacts" />
+        </rollback>
+    </changeSet>
+    
+    <changeSet id="insert_test_data" author="nseveryn">
+        <insert schemaName="catalog" tableName="contacts">
+            <column name="full_name">Tessie Vise</column>
+            <column name="phone_number">0669098745</column>
+        </insert>
+        <insert schemaName="catalog" tableName="contacts">
+            <column name="full_name">Randolph Marciano</column>
+            <column name="phone_number">0985645464</column>
+        </insert>
+        <insert schemaName="catalog" tableName="contacts">
+            <column name="full_name">Ginny Voelker</column>
+            <column name="phone_number">0689789797</column>
+        </insert>
+        <insert schemaName="catalog" tableName="contacts">
+            <column name="full_name">Anna Honeycutt</column>
+            <column name="phone_number">0991611325</column>
+        </insert>
+        <insert schemaName="catalog" tableName="contacts">
+            <column name="full_name">Nichol Rude</column>
+            <column name="phone_number">0505684975</column>
+        </insert>
+        <insert schemaName="catalog" tableName="contacts">
+            <column name="full_name">Hong Ludden</column>
+            <column name="phone_number">0965454658</column>
+        </insert>
+        <insert schemaName="catalog" tableName="contacts">
+            <column name="full_name">Selina Jagodzinski</column>
+            <column name="phone_number">0670560068</column>
+        </insert>
+        <insert schemaName="catalog" tableName="contacts">
+            <column name="full_name">Deja Bonnette</column>
+            <column name="phone_number">0666363623</column>
+        </insert>
+        <insert schemaName="catalog" tableName="contacts">
+            <column name="full_name">Selene Boggess</column>
+            <column name="phone_number">0666598765</column>
+        </insert>
+        <insert schemaName="catalog" tableName="contacts">
+            <column name="full_name">Laurice Zerangue</column>
+            <column name="phone_number">0669065498</column>
+        </insert>
+        <insert schemaName="catalog" tableName="contacts">
+            <column name="full_name">Elbert Knisely</column>
+            <column name="phone_number">0669648465</column>
+        </insert>
+        <insert schemaName="catalog" tableName="contacts">
+            <column name="full_name">Emilie Proto</column>
+            <column name="phone_number">0669000746</column>
+        </insert>
+
+    </changeSet>
+</databaseChangeLog>

@@ -7,6 +7,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import java.util.List;
+
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
@@ -63,6 +65,27 @@ public class ContactsImplTest {
 
     @Test
     public void pagedItems() {
-        //TODO: write test
+        contacts.pagedItems(0, 5);
+        verify(repository).retrievePaged(0,5);
+    }
+
+    @Test
+    public void secondPageTest() {
+        contacts.pagedItems(5, 5);
+        verify(repository).retrievePaged(1,5);
+    }
+
+    @Test
+    public void zeroLimitTest(){
+        contacts.pagedItems(5, 0);
+        verify(repository, never()).retrievePaged(any(), any());
+    }
+
+    @Test
+    public void returningPagedDataTest() {
+        List<Contact> data = mock(List.class);
+        when(repository.retrievePaged(anyInt(), anyInt())).thenReturn(data);
+        List<Contact> retrievedData = this.contacts.pagedItems(0, 5);
+        assertSame(data, retrievedData);
     }
 }

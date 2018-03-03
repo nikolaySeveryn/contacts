@@ -49,8 +49,8 @@ public class ContactDatabaseRepository implements ContactRepository {
 	}
 
 	@Override
-	public List<Contact> retrievePaged(Integer offset, Integer limit) {
-		Page<ContactData> allData = crudRepository.findAll(PageRequest.of(offset, limit));
+	public List<Contact> retrievePaged(Integer page, Integer size) {
+		Page<ContactData> allData = crudRepository.findAll(PageRequest.of(page, size));
 		List<Contact> contacts = new ArrayList<>(allData.getSize());
 		for(ContactData data : allData){
 			contacts.add(createContact(data));

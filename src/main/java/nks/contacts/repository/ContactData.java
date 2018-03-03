@@ -1,17 +1,13 @@
 package nks.contacts.repository;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
+import javax.persistence.*;
 
 @Entity
+@Table(schema = "catalog", name = "contacts")
 public class ContactData {
 	@Id
-	@SequenceGenerator(name="contact_id",sequenceName="seq_contact_id", allocationSize=1)
-	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="contact_id")
+	@SequenceGenerator(name="seq_contact_id", schema = "catalog", sequenceName="seq_contact_id", allocationSize=1)
+	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="seq_contact_id")
 	private Integer id;
 	
 	@Column(name="full_name", nullable=false)
